@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Blog details {% endblock %}
+{% block content %}
+<div class="container">
+    <h1>{{blog.blog_title}}</h1>
+    <i><p>{{blog.publish_date}}</p></i>
+    <p>Likes:{{blog.liked_blog.count}} | comments: {{blog.blog_comment.count}}</p>
+    <img src="/media/{{blog.blog_img}}" alt="">
+    <br>
+    <br>
+    <br>
+    <p>{{blog.blog_content | linebreaks}}</p>
+    <br>
+    <br>
+    <br>
+    {% if not Liked %}
+    <a href="{% url 'blog_app:like_post' pk=blog.pk %}"><i class="fa-regular fa-thumbs-up"></i></a>
+    {% else %}
+    <a href="{% url 'blog_app:unliked_post' pk=blog.pk %}"><i class="fa-solid fa-thumbs-up"></i></a>
+    {% endif %}
+    <br>
+    <h4>Comments</h4>
+    <hr>
+   {% for comment in blog.blog_comment.all %}
+   <div>
+        <h5>{{comment.user}}</h5>
+        <i><p><small>{{comment.comment_date}}</small></p></i>
+        <p style="color: blue;">{{comment.comment}}</p>
+   </div>
+   {% endfor %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <br>
+        
+        <button type="submit">Comment</button>
+    </form>
+</div>
+
+
+{% endblock %}

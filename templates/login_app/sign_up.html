@@ -1,0 +1,44 @@
+{% extends 'base.html'%} {% load crispy_forms_tags %} {% block title %}signUp{%endblock %}
+ {% block content %}
+<div class="container ">
+  <div class="p-3 m-3">
+    <div class="col-lg-5 rounded mx-auto border p-4">
+     
+      <h3 class="alert alert-success rounded-pill" style="text-align: center">
+        Create an Account
+      </h3>
+      
+      {% if registered %}
+      <div class="alert alert-success">
+        <p>
+          Account created successfully!
+          <a href="{% url 'login_app:log_in'%}">Login here!</a>
+        </p>
+      </div>
+      {% else %}
+      <form action="" method="POST">
+        {% csrf_token %}
+         {{form | crispy }}
+         <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+            <label class="form-check-label d-grid gap-2" for="exampleCheck1"
+              >Check me out</label
+            >
+          </div>
+          <hr />
+          <button type="submit" class="btn btn-sm btn-success col-lg-12">
+            Create an account
+          </button>
+      </form>
+      <div>
+        <h5>
+            Already have a account?
+            <a href="{% url 'login_app:log_in'%}">Login here!</a>
+          </h5>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

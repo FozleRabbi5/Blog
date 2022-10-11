@@ -1,0 +1,22 @@
+{% extends 'base.html'%} {% block title %}Profile{% endblock %}
+{% block content%}
+<h1>Your profile</h1>
+{% if user.user_profile %}
+<img src="/media/{{user.user_profile.profile_pic}}" alt="" width="300px" />
+<br>
+<br>
+<a href="{% url 'login_app:change-profile-pic'%}" class="btn btn-info"
+  >Change Image</a
+>
+{% else %}
+<img src="/media/profile_pics/demo.png" alt="" width="100px" /><br /><br />
+<a href="{% url 'login_app:profile-picture'%}" class="btn btn-info"
+  >Add image</a
+>
+
+{% endif %}
+<p>User name :{{ user.username }}</p>
+<p>Email : {{ user.email }}</p>
+<p>Name : {{ user.first_name }} {{ user.last_name }}</p>
+<a href="{% url 'login_app:user_change'%}">Change profile info</a>
+{% endblock %}
